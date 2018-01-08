@@ -20,7 +20,8 @@ let db = {
     tx: "",
     buyerAddress: add2,
     sellerAddress: add1,
-    completed: false
+    completed: false,
+    milestone:[]
 }
 
 app.use(bodyParser.json());
@@ -151,25 +152,68 @@ app.post('/placeorder', function(req, res){
                             db.decodedTx = data;
                         }
                     });
-                    return res.json({message:'success', rawExchange: rawExchange});
+                    db.milestone = [];
+                    db.milestone.push({ caption: 'OrderPlaced', date: new Date(2014, 1, 16), selected: true, title: 'Horizontal Timeline', content: "" });
+                    return res.json({message:'success', rawExchange: rawExchange, timeline: db.milestone});
                 });
             });
         });
     });
 });
 
-app.get('/executeCurrentOffer', function(req, res){
-    if(!db.completedRawTx){
-        res.status(404).json({'message': 'error', error: "No transaction to process"});
-    }
-    multichain.sendRawTransaction({hexstring: db.completedRawTx}, (err, tx)=>{
+app.get('/buyer', function(req, res){
+    multichain.getMultiBalances({addresses: add2, assets: ['Rs', 'LaptopK4'], includeLocked: true}, (err, data)=>{
         if(err){
-            console.log(err);
             return res.status(400).json({message:'error', err:err});
         }
-        db.tx = tx;
-        return res.json({message:'success', tx: tx});
+        let buyer = {};
+        buyer.address = add2;
+        buyer.label = "Buyer";
+        buyer.assets = data[add2];
+        return res.json({message:'success', buyer: buyer});
     });
+});
+
+app.get('/action/:action', function(req, res){
+    switch(req.params.action){
+        case 'order':
+            db.milestone.push({ caption: 'OrderPlaced', date: new Date(2014, 1, 16), selected: true, title: 'Horizontal Timeline', content: "" });
+            return res.json({message:'success', timeline: db.milestone});
+        break;
+        case 'package':
+            db.milestone.push({ caption: 'Packaged', date: new Date(2014, 1, 20), selected: true, title: 'Horizontal Timeline', content: "" });
+            return res.json({message:'success', timeline: db.milestone});
+        break;
+        case 'ship':
+            db.milestone.push({ caption: 'Shipped', date: new Date(2014, 1, 24), selected: true, title: 'Horizontal Timeline', content: "" });
+            return res.json({message:'success', timeline: db.milestone});
+        break;
+        case 'deliver':
+            if(!db.completedRawTx){
+                res.status(404).json({'message': 'error', error: "No transaction to process"});
+            }
+            multichain.sendRawTransaction({hexstring: db.completedRawTx}, (err, tx)=>{
+                if(err){
+                    console.log(err);
+                    return res.status(400).json({message:'error', err:err});
+                }
+                db.tx = tx;
+                db.milestone.push({ caption: 'Delivered', date: new Date(2014, 1, 28), selected: true, title: 'Horizontal Timeline', content: "" });
+                return res.json({message:'success', tx: tx, timeline: db.milestone});
+            });
+        break;
+        case 'reset':
+            db.milestone = [];
+            return res.json({message:'success', timeline: db.milestone});
+        break;
+        default:
+            return res.json({message:'success', timeline: db.milestone});
+        break;
+    }
+});
+
+app.get('/currenttransaction', function(req, res){
+    return res.json({message: 'success', details: db});
 });
 
 
@@ -327,10 +371,11 @@ app.get('/listactors/:assetname', function(req, res){
         }
     }
     async.map(actors, function(actor, callback){
-        multichain.getMultiBalances({addresses: actor.address, assets: assetName}, (err, data)=>{
+        multichain.getMultiBalances({addresses: actor.address, assets: assetName, includeLocked: true}, (err, data)=>{
             if(err){
                 return callback(null, actor);
             }
+            console.log(data);
             actor.assets = data[actor.address];
             callback(null, actor)
         });

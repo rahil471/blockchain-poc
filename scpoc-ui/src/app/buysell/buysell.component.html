@@ -5,8 +5,8 @@
         <h2 class="subtitle">
           Selling Laptop K4
         </h2>
-        <div *ngFor = "let seller of sellers">
-          <nav *ngIf="seller.assets && seller.assets[0].qty" class="panel">
+        <ng-container *ngFor = "let seller of sellers">
+          <nav *ngIf="seller.assets && seller.assets[0].qty && seller.address != buyer.address" class="panel">
             <p class="panel-heading">
               {{seller.label}}
             </p>
@@ -26,7 +26,7 @@
               <span class="panel-icon">
                 <i class="fa fa-book"></i>
               </span>
-              <b>Quantity - {{seller.assets ? seller.assets[0].qty : null}}</b>
+              <b>Quantity - {{seller.assets ? seller.assets[0].qty : null}} (Locked - {{qty || 0}})</b>
             </a>
             <a class="panel-block">
               <span class="panel-icon">
@@ -53,9 +53,9 @@
                 Place Order
               </button>
             </div>
+            <br>
           </nav>
-          <br>
-        </div>
+        </ng-container>
       </div>      
   
       <div class="column container">
@@ -66,37 +66,44 @@
         </h2>
         <nav class="panel">
           <p class="panel-heading">
-              {{buyer[0].label}}
+              {{buyer.label}}
           </p>
           <a class="panel-block">
             <span class="panel-icon">
               <i class="fa fa-book"></i>
             </span>
-            Address - {{buyer[0].address}}
+            Address - {{buyer.address}}
           </a>
-          <a class="panel-block" *ngFor="let asset of buyer[0].assets">
+          <a class="panel-block" *ngFor="let asset of buyer.assets">
             <span class="panel-icon">
               <i class="fa fa-book"></i>
             </span>
             {{asset.name}} - {{asset.qty}}
           </a>
-          <div class="panel-block">
-            <button class="button is-link is-outlined is-fullwidth">
-              reset all filters
-            </button>
-          </div>
         </nav>
+        <h1 class="title">Simulate Shipping</h1>
+        <h2 class="subtitle">
+          Status of your shipment
+        </h2>
+        <button class="is-primary button" *ngIf="timeline[timeline.length - 1].caption == 'OrderPlaced'" (click)="doAction('package')">Package</button>
+        <button class="is-primary button" *ngIf="timeline[timeline.length - 1].caption == 'Packaged'" (click)="doAction('ship')">Ship</button>
+        <button class="is-primary button" *ngIf="timeline[timeline.length - 1].caption == 'Shipped'" (click)="doAction('deliver')">Deliver</button>
+        <button class="is-primary button" *ngIf="timeline[timeline.length - 1].caption == 'Delivered'" (click)="doAction('reset')">Reset</button>
       </div>
     </div>
    
   </section>
   
-  <section class="section">
+  <!-- <section class="section">
     <div class="container">
-      <h1 class="title">Track order</h1>
+      <h1 class="title">Simulate Shipping</h1>
       <h2 class="subtitle">
         Status of your shipment
       </h2>
-      <app-timeline [timelineElements]="timeline" [showContent]="true"></app-timeline>
+      <button *ngIf="timeline[timeline.length - 1].caption == 'OrderPlaced'" (click)="doAction('package')">Package</button>
+      <button *ngIf="timeline[timeline.length - 1].caption == 'Packaged'" (click)="doAction('ship')">Ship</button>
+      <button *ngIf="timeline[timeline.length - 1].caption == 'Shipped'" (click)="doAction('deliver')">Deliver</button>
+      <button *ngIf="timeline[timeline.length - 1].caption == 'Delivered'" (click)="doAction('reset')">Reset</button>
+      <app-timeline [timelineElements]="timeline" [showContent]="false"></app-timeline>
     </div>
-  </section>
+  </section> -->

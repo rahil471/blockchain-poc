@@ -9,12 +9,9 @@ import { HttpClient } from '@angular/common/http';
 })
 export class BuysellComponent implements OnInit {
   content = "";
-  sellers; qty; buyer;
+  sellers; qty; buyer = []; currentDb;
   timeline:TimelineElement[] =  [
-    { caption: 'Order Placed', date: new Date(2014, 1, 16), selected: true, title: 'Horizontal Timeline', content: this.content },
-    { caption: 'Packaged', date: new Date(2014, 1, 17), title: 'Event title here', content: this.content },
-    { caption: 'Shipped', date: new Date(2014, 1, 18), title: 'Event title here', content: this.content },
-    { caption: 'Delivered', date: new Date(2014, 1, 19), title: 'Event title here', content: this.content }
+    { caption: 'Awaiting', date: new Date(2014, 1, 16), selected: true, title: 'Horizontal Timeline', content: "" }
   ]
 
   constructor(private http: HttpClient) { }
@@ -22,6 +19,20 @@ export class BuysellComponent implements OnInit {
   ngOnInit() {
     this.getActors();
     this.getBuyer();
+    this.getTxDetails();
+  }
+
+  getTxDetails(){
+    return this.http.get<any>(`http://localhost:3333/currenttransaction`).subscribe(data => {
+      
+      this.currentDb = data.details;
+      if(this.currentDb.milestone.length == 0){
+        this.timeline = [{ caption: 'Awaiting', date: new Date(2014, 1, 16), selected: true, title: 'Horizontal Timeline', content: "" }];
+      } else {
+        this.timeline.push(this.currentDb.milestone[this.currentDb.milestone.length -1 ]);
+      }
+      console.log(data.result);
+    });
   }
 
   getActors(){
@@ -29,19 +40,18 @@ export class BuysellComponent implements OnInit {
       console.log(data.result);
       let response = data;
       this.sellers = response.result;
-    });;
+    });
   }
 
   getBuyer(){
-    return this.http.get<ListActorsResponse>(`http://localhost:3333/listactors/Rs?isSeller=true`).subscribe(data => {
+    return this.http.get<any>(`http://localhost:3333/buyer`).subscribe(data => {
       console.log(data.result);
       let response = data;
-      this.buyer = response.result;
-    });;
+      this.buyer = response.buyer;
+    });
   }
 
   placeOrder(ev, seller){
-    console.log(ev);
     let body = {
       "asset1":{
         "addr1": seller.address,
@@ -55,8 +65,25 @@ export class BuysellComponent implements OnInit {
     }
     this.http.post<any>(`http://localhost:3333/placeorder`, body).subscribe(data=>{
       this.getActors();
-      getBuyer()
+      this.getBuyer();
+      this.timeline.push(data.timeline[data.timeline.length -1 ]);
       alert('Order Placed');
+    });
+  }
+
+  doAction(actionname){
+    this.http.get<any>(`http://localhost:3333/action/${actionname}`).subscribe(data=>{
+      if(actionname == 'deliver'){
+        this.qty = 0;
+      }
+      if(actionname == 'reset'){
+        this.timeline = [{ caption: 'Awaiting', date: new Date(2014, 1, 16), selected: true, title: 'Horizontal Timeline', content: "" }];
+      } else {
+        this.timeline = data.timeline;
+      }
+      this.getActors();
+      this.getBuyer();
+      alert(this.timeline[this.timeline.length -1].caption);
     });
   }
 

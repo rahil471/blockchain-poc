@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { SweetAlertService } from 'angular-sweetalert-service';
-import { setTimeout } from 'timers';
 
 @Component({
   selector: 'app-supplychain',
