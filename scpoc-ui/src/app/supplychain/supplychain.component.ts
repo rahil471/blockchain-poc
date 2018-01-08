@@ -35,6 +35,7 @@ export class SupplychainComponent implements OnInit {
       console.log(data);
       this.changeStatus();
       this.getTx();
+      alert('success');
     });
   }
 

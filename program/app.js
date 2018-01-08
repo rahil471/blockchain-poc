@@ -10,8 +10,8 @@ let multichain = require("multichain-node")({
     pass: "3mSZsZ5F8fwioTgX9RgK8AfziAUV7tykTiK714o9k7gb"
 });
 
-let add1 = "16DB1aLZ73G4vVctaQmQ5RWjcwXgSvmfAq7KXN"; //has laptops
-let add2 = "1Qg1wKxad9vt9FFrLCjFdqwxQTbLESJ55UFZgt"; //has money
+let add1 = "1JKRNyDrdpgycb9dtiET2r2mf1o5Tiqe698dQM"; //has laptops
+let add2 = "1UH9u8d4wifowK3fRhXQ5jk2tTHP41W7PzfiG"; //has money
 
 let db = {
     decodedTx: {},
@@ -162,7 +162,7 @@ app.post('/placeorder', function(req, res){
 });
 
 app.get('/buyer', function(req, res){
-    multichain.getMultiBalances({addresses: add2, assets: ['Rs', 'LaptopK4'], includeLocked: true}, (err, data)=>{
+    multichain.getMultiBalances({addresses: add2, assets: ['$', 'LaptopK4'], includeLocked: true}, (err, data)=>{
         if(err){
             return res.status(400).json({message:'error', err:err});
         }
@@ -224,10 +224,10 @@ app.get('/currenttransaction', function(req, res){
 // });
 
 let users = {
-    manufacturer: ["1Qg1wKxad9vt9FFrLCjFdqwxQTbLESJ55UFZgt"],
-    distributor: ["16DB1aLZ73G4vVctaQmQ5RWjcwXgSvmfAq7KXN"],
-    subdistributor: ["1ac6KbTrqsradeCSFH91KypA9SPB8wyFmL6aoQ","19Xzo4Fj7LR3SVorrTSUY5pNDrcutZ1kLcjeuA"],
-    retailers: ["1PwEYbmynRBUs6mdX6EFhNicsdBgX5BDdnBzi9","1aEJZUAzeYm9ztWygc9pRUnx1JfnPFJCeqfF7E","1WSSmuPauX3w61QjRQLJgw7qXoJNmY9KEjmGiv"]
+    manufacturer: ["1GGQGqb2ScbicR1DkC5aF8tjfECTB4moHmjJnK"],
+    distributor: ["1ZBxF5tJeoby3XoNt4s2BeXwKaYbBtSkeE3iS2"],
+    subdistributor: ["1Qse2PsUGJ9unUDNwAskZtDkzDeBQmaUmx63f9","1LS2f5hqokoKSeqeZEjsjPwjKnpRf21DmfF7NG"],
+    retailers: ["1XjnqxFqeL6dTdERPPQJy3rCzXHs8mbtEu3c6","1Stt3R57KYWvv9RBP6ukJUGMCmNCv9zZczTVry","1XZ5vrgdRhmCYbuNbtjmRQmErvmVUyivSwPFgu"]
 }
 
 app.get('/manufacture/:assetname/:qty', function(req, res){
