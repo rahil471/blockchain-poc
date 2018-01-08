@@ -1,0 +1,102 @@
+<section class="section">
+    <div class="columns">
+      <div class="column container">
+        <h1 class="title">Sellers</h1>
+        <h2 class="subtitle">
+          Selling Laptop K4
+        </h2>
+        <div *ngFor = "let seller of sellers">
+          <nav *ngIf="seller.assets && seller.assets[0].qty" class="panel">
+            <p class="panel-heading">
+              {{seller.label}}
+            </p>
+            <a class="panel-block">
+              <span class="panel-icon">
+                <i class="fa fa-book"></i>
+              </span>
+              Address - {{seller.address}}
+            </a>
+            <a class="panel-block">
+              <span class="panel-icon">
+                <i class="fa fa-book"></i>
+              </span>
+              Asset Name - {{seller.assets ? seller.assets[0].name : null}}
+            </a>
+            <a class="panel-block">
+              <span class="panel-icon">
+                <i class="fa fa-book"></i>
+              </span>
+              <b>Quantity - {{seller.assets ? seller.assets[0].qty : null}}</b>
+            </a>
+            <a class="panel-block">
+              <span class="panel-icon">
+                <i class="fa fa-book"></i>
+              </span>
+              Asset Ref - {{seller.assets ? seller.assets[0].assetref : null}}
+            </a>
+            <a class="panel-block">
+                <span class="panel-icon">
+                  <i class="fa fa-book"></i>
+                </span>
+               Price - 30000$
+              </a>
+            <div class="panel-block">
+              <p class="control has-icons-left">
+                <input [(ngModel)]="qty" class="input is-small" type="text" placeholder="Quantity">
+                <span class="icon is-small is-left">
+                  <i class="fa fa-search"></i>
+                </span>
+              </p>
+            </div>
+            <div class="panel-block">
+              <button (click)="placeOrder($event, seller)" class="button is-link is-outlined is-fullwidth">
+                Place Order
+              </button>
+            </div>
+          </nav>
+          <br>
+        </div>
+      </div>      
+  
+      <div class="column container">
+        
+        <h1 class="title">Buyer</h1>
+        <h2 class="subtitle">
+          Track your assets
+        </h2>
+        <nav class="panel">
+          <p class="panel-heading">
+              {{buyer[0].label}}
+          </p>
+          <a class="panel-block">
+            <span class="panel-icon">
+              <i class="fa fa-book"></i>
+            </span>
+            Address - {{buyer[0].address}}
+          </a>
+          <a class="panel-block" *ngFor="let asset of buyer[0].assets">
+            <span class="panel-icon">
+              <i class="fa fa-book"></i>
+            </span>
+            {{asset.name}} - {{asset.qty}}
+          </a>
+          <div class="panel-block">
+            <button class="button is-link is-outlined is-fullwidth">
+              reset all filters
+            </button>
+          </div>
+        </nav>
+      </div>
+    </div>
+   
+  </section>
+  
+  <section class="section">
+    <div class="container">
+      <h1 class="title">Track order</h1>
+      <h2 class="subtitle">
+        Status of your shipment
+      </h2>
+      <app-timeline [timelineElements]="timeline" [showContent]="true"></app-timeline>
+    </div>
+  </section>

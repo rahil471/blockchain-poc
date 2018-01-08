@@ -1,0 +1,30 @@
+<nav class="panel">
+    <p class="panel-heading">
+      {{actor.label}}
+    </p>
+    <a class="panel-block">
+      <span class="panel-icon">
+        <i class="fa fa-book"></i>
+      </span>
+      Address - {{actor.address}}
+    </a>
+    <a class="panel-block">
+      <span class="panel-icon">
+        <i class="fa fa-book"></i>
+      </span>
+      Asset Name - {{actor.assets ? actor.assets[0].name : null}}
+    </a>
+    <a class="panel-block">
+      <span class="panel-icon">
+        <i class="fa fa-book"></i>
+      </span>
+      <b>Quantity - {{actor.assets ? actor.assets[0].qty : null}}</b>
+    </a>
+    <a class="panel-block">
+      <span class="panel-icon">
+        <i class="fa fa-book"></i>
+      </span>
+      Asset Ref - {{actor.assets ? actor.assets[0].assetref : null}}
+    </a>
+  </nav>
+  <br>

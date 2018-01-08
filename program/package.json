@@ -1,0 +1,19 @@
+{
+  "name": "program",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "async": "^2.6.0",
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "express-router": "0.0.1",
+    "multichain-node": "^2.1.6-version1.0.2"
+  }
+}

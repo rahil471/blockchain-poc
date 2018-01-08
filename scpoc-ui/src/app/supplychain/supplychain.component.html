@@ -1,0 +1,58 @@
+<section class="section">
+    <div class="columns">
+      <div class="column container">
+        <app-supplier-list [assetname]="assetname" [callapi]="status"></app-supplier-list>
+      </div>      
+  
+      <div class="column container">
+          <h1 class="title">Simulator</h1>
+          <h2 class="subtitle">
+            Simulate steps in supply chain
+          </h2>
+          <section>
+            <div class="field">
+              <div class="control">
+                <input class="input is-primary" [(ngModel)]="assetname" type="text" placeholder="Add Asset Name">
+              </div>
+            </div>
+            <div class="field">
+              <div class="control">
+                  <button class="button is-primary" (click)="action('manufacture')">Manufacture</button>
+                  <button class="button is-info" (click)="action('distribute')">Distribute</button>
+                  <button class="button is-success" (click)="action('subdistribute')">Sub Distribute</button>
+                  <button class="button is-danger" (click)="action('retail')">Retail</button>
+              </div>
+            </div>
+        </section>
+        <br>
+        <section>
+          <h1 class="title">Track Assets</h1>
+          <h2 class="subtitle">
+            Track your asset
+          </h2>
+          <button class="button is-dark" (click)="fetch()">Fetch Transactions</button>
+          <table class="table is-fullwidth">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Transaction</th>
+                <th>BlockHash</th>
+                <th>Confirmations</th>
+                <th>Time</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let tx of transactions">
+                <td style="max-width:200px; word-wrap:break-word">{{tx.txid}}</td>
+                <td style="max-width:300px; word-wrap:break-word"><b>{{tx.addresses | json}}</b></td>
+                <td style="max-width:200px; word-wrap:break-word">{{tx.blockhash}}</td>
+                <td style="max-width:50px; word-wrap:break-word">{{tx.confirmations}}</td>
+                <td style="max-width:100px; word-wrap:break-word">{{tx.time}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+      </div>
+    </div>
+   
+  </section>
