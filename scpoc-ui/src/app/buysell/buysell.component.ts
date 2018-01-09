@@ -9,7 +9,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class BuysellComponent implements OnInit {
   content = "";
-  seller; qty; buyer = []; currentDb;
+  seller = []; qty; buyer = []; currentDb;
   timeline:TimelineElement[] =  [
     { caption: 'Awaiting', date: new Date(2014, 1, 16), selected: true, title: 'Horizontal Timeline', content: "" }
   ]
@@ -59,8 +59,8 @@ export class BuysellComponent implements OnInit {
         "qty": parseInt(this.qty)
       }, 
       "asset2": {
-        "name": "Rs",
-        "qty": this.qty * 30000
+        "name": "$",
+        "qty": parseInt(this.qty) * 1000
       }
     }
     this.http.post<any>(`http://localhost:3333/placeorder`, body).subscribe(data=>{

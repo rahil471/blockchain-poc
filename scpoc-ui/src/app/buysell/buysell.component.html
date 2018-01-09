@@ -22,18 +22,19 @@
               </span>
               Asset Name - {{seller.assets ? seller.assets[0].name : null}}
             </a>
-            <a class="panel-block" *ngFor="let asset of seller.assets">
-              <span class="panel-icon">
-                <i class="fa fa-book"></i>
-              </span>
-              {{asset.name}} - {{asset.qty}}
-            </a>
             <a class="panel-block">
                 <span class="panel-icon">
                   <i class="fa fa-book"></i>
                 </span>
-               Price - 30000$
+               Price - 1000$
               </a>
+            <a class="panel-block is-primary" *ngFor="let asset of seller.assets">
+              <span class="panel-icon">
+                <i class="fa fa-book"></i>
+              </span>
+              <b>{{asset.name}} - {{asset.qty}}</b>
+            </a>
+            
             <div class="panel-block">
               <p class="control has-icons-left">
                 <input [(ngModel)]="qty" class="input is-small" type="text" placeholder="Quantity">

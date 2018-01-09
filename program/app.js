@@ -10,7 +10,7 @@ let multichain = require("multichain-node")({
     pass: "3mSZsZ5F8fwioTgX9RgK8AfziAUV7tykTiK714o9k7gb"
 });
 
-let add1 = "1JKRNyDrdpgycb9dtiET2r2mf1o5Tiqe698dQM"; //has laptops
+let add1 = "1Qg1wKxad9vt9FFrLCjFdqwxQTbLESJ55UFZgt"; //has laptops
 let add2 = "1UH9u8d4wifowK3fRhXQ5jk2tTHP41W7PzfiG"; //has money
 
 let db = {
