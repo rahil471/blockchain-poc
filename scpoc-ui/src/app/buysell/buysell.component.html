@@ -5,8 +5,8 @@
         <h2 class="subtitle">
           Selling Laptop K4
         </h2>
-        <ng-container *ngFor = "let seller of sellers">
-          <nav *ngIf="seller.assets && seller.assets[0].qty && seller.address != buyer.address" class="panel">
+        <ng-container>
+          <nav class="panel">
             <p class="panel-heading">
               {{seller.label}}
             </p>
@@ -22,17 +22,11 @@
               </span>
               Asset Name - {{seller.assets ? seller.assets[0].name : null}}
             </a>
-            <a class="panel-block">
+            <a class="panel-block" *ngFor="let asset of seller.assets">
               <span class="panel-icon">
                 <i class="fa fa-book"></i>
               </span>
-              <b>Quantity - {{seller.assets ? seller.assets[0].qty : null}} (Locked - {{qty || 0}})</b>
-            </a>
-            <a class="panel-block">
-              <span class="panel-icon">
-                <i class="fa fa-book"></i>
-              </span>
-              Asset Ref - {{seller.assets ? seller.assets[0].assetref : null}}
+              {{asset.name}} - {{asset.qty}}
             </a>
             <a class="panel-block">
                 <span class="panel-icon">

@@ -10,7 +10,9 @@ import { SupplierListModule } from '../shared/supplier-list/supplier-list.module
 import { AccountPanelModule } from '../shared/account-panel/account-panel.module';
 
 const BuysellRoutes: Routes = [
-  { path: '',  component: BuysellComponent }
+  { path: 'buysell', children: [{
+    path: '', component: BuysellComponent
+  }] }
 ];
 
 export const BuysellRouting = RouterModule.forChild(BuysellRoutes);

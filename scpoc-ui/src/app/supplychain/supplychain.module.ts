@@ -8,7 +8,12 @@ import { FormsModule } from '@angular/forms';
 import { SupplierListModule } from '../shared/supplier-list/supplier-list.module';
 
 const SupplychainRoutes: Routes = [
-  { path: '',  component: SupplychainComponent }
+  { 
+    path: 'supplychain',  
+    children: [{
+      path: '', component: SupplychainComponent
+    }]
+  }
 ];
 
 export const SupplychainRouting = RouterModule.forChild(SupplychainRoutes);

@@ -13,6 +13,11 @@ import { SupplychainModule } from './supplychain/supplychain.module';
 
 const appRoutes: Routes = [
   {
+    path: '',
+    redirectTo: '/supplychain',
+    pathMatch: 'full'
+  },
+  {
     path: "supplychain",
     loadChildren: 'app/supplychain/supplychain.module#SupplychainModule'
   }, 

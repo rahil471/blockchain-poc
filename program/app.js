@@ -174,6 +174,19 @@ app.get('/buyer', function(req, res){
     });
 });
 
+app.get('/seller', function(req, res){
+    multichain.getMultiBalances({addresses: add1, assets: ['$', 'LaptopK4'], includeLocked: true}, (err, data)=>{
+        if(err){
+            return res.status(400).json({message:'error', err:err});
+        }
+        let seller = {};
+        seller.address = add1;
+        seller.label = "Seller";
+        seller.assets = data[add1];
+        return res.json({message:'success', seller: seller});
+    });
+});
+
 app.get('/action/:action', function(req, res){
     switch(req.params.action){
         case 'order':

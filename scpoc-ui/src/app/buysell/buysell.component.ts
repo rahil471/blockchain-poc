@@ -9,7 +9,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class BuysellComponent implements OnInit {
   content = "";
-  sellers; qty; buyer = []; currentDb;
+  seller; qty; buyer = []; currentDb;
   timeline:TimelineElement[] =  [
     { caption: 'Awaiting', date: new Date(2014, 1, 16), selected: true, title: 'Horizontal Timeline', content: "" }
   ]
@@ -36,10 +36,10 @@ export class BuysellComponent implements OnInit {
   }
 
   getActors(){
-    return this.http.get<ListActorsResponse>(`http://localhost:3333/listactors/LaptopK4`).subscribe(data => {
+    return this.http.get<any>(`http://localhost:3333/seller`).subscribe(data => {
       console.log(data.result);
       let response = data;
-      this.sellers = response.result;
+      this.seller = response.seller;
     });
   }
 
