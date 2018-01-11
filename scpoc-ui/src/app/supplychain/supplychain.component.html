@@ -26,7 +26,7 @@
                 <div class="select">
                   <select #fromList  (change)="changeFrom(fromList.value)" >
                     <option [value]="undefined" disabled >Please select one option</option>
-                    <option *ngFor="let actor of actors" [hidden]="!actor.assets" [value]="actor|json">
+                    <option *ngFor="let actor of actors" [hidden]="!actor.assets || !actor.assets[0].qty" [value]="actor|json">
                       {{actor.label}}
                     </option>
                   </select> 
