@@ -36,11 +36,9 @@ export class SupplychainComponent implements OnInit {
   }
 
   action(path) {
-    this.status = false;
     this.http.get<any>(`${environment.apihost}/${path}/${this.assetname}/${this.qty}`).subscribe(data => {
       console.log(data);
-      this.changeStatus();
-      this.getTx();
+      this.getActors();
       alert('success');
     }, (err)=>{
       alert('Failed');
@@ -60,8 +58,7 @@ export class SupplychainComponent implements OnInit {
       to: this.to
     }
     this.http.post<any>(`${environment.apihost}/send/${this.assetname}/${this.qty}`, body).subscribe(data => {
-      this.changeStatus();
-      this.getTx();
+      this.getActors();
       alert(data.tx);
     }, (err)=>{
       alert('Failed');
