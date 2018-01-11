@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TimelineElement } from '../shared/timeline/timeline-elements';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-buysell',
@@ -23,7 +24,7 @@ export class BuysellComponent implements OnInit {
   }
 
   getTxDetails(){
-    return this.http.get<any>(`http://localhost:3333/currenttransaction`).subscribe(data => {
+    return this.http.get<any>(`${environment.apihost}/currenttransaction`).subscribe(data => {
       
       this.currentDb = data.details;
       if(this.currentDb.milestone.length == 0){
@@ -36,7 +37,7 @@ export class BuysellComponent implements OnInit {
   }
 
   getActors(){
-    return this.http.get<any>(`http://localhost:3333/seller`).subscribe(data => {
+    return this.http.get<any>(`${environment.apihost}/seller`).subscribe(data => {
       console.log(data.result);
       let response = data;
       this.seller = response.seller;
@@ -44,7 +45,7 @@ export class BuysellComponent implements OnInit {
   }
 
   getBuyer(){
-    return this.http.get<any>(`http://localhost:3333/buyer`).subscribe(data => {
+    return this.http.get<any>(`${environment.apihost}/buyer`).subscribe(data => {
       console.log(data.result);
       let response = data;
       this.buyer = response.buyer;
@@ -63,7 +64,7 @@ export class BuysellComponent implements OnInit {
         "qty": parseInt(this.qty) * 1000
       }
     }
-    this.http.post<any>(`http://localhost:3333/placeorder`, body).subscribe(data=>{
+    this.http.post<any>(`${environment.apihost}/placeorder`, body).subscribe(data=>{
       this.getActors();
       this.getBuyer();
       this.timeline.push(data.timeline[data.timeline.length -1 ]);
@@ -72,7 +73,7 @@ export class BuysellComponent implements OnInit {
   }
 
   doAction(actionname){
-    this.http.get<any>(`http://localhost:3333/action/${actionname}`).subscribe(data=>{
+    this.http.get<any>(`${environment.apihost}/action/${actionname}`).subscribe(data=>{
       if(actionname == 'deliver'){
         this.qty = 0;
       }

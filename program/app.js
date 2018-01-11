@@ -331,6 +331,19 @@ app.get('/retail/:assetname/:qty', function(req, res){
         });
 });
 
+app.post('/send/:assetname/:qty', function(req, res){
+    let from = req.body.from;
+    let to = req.body.to;
+    let assetName = req.params.assetname;
+    let issueQty = parseInt(req.params.qty);
+    multichain.sendAssetFrom({from: from, to:to, asset: assetName, qty: issueQty}, (err, issueTxid)=>{
+        if(err){
+            return res.status(400).json({message:'error', err:err});
+        }
+        return res.json({message:'success', tx: issueTxid});
+    });
+});
+
 app.get('/listassettransactions/:assetname', function(req, res){
     let assetName = req.params.assetname;
     let issueQty = parseInt(req.params.qty);

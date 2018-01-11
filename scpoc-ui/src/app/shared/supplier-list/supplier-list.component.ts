@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, OnChanges, SimpleChange } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-supplier-list',
@@ -32,7 +33,7 @@ export class SupplierListComponent implements OnChanges, OnInit {
   }
 
   getActors(){
-    return this.http.get<ListActorsResponse>(`http://localhost:3333/listactors/${this.assetname}`);
+    return this.http.get<ListActorsResponse>(`${environment.apihost}/listactors/${this.assetname}`);
   }
 
 }
