@@ -10,7 +10,7 @@ import { environment } from '../../environments/environment';
 })
 export class BuysellComponent implements OnInit {
   content = "";
-  seller = []; qty; buyer = []; currentDb;
+  seller:any = {}; qty; buyer:any = {}; currentDb;
   timeline:TimelineElement[] =  [
     { caption: 'Awaiting', date: new Date(2014, 1, 16), selected: true, title: 'Horizontal Timeline', content: "" }
   ]
