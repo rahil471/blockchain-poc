@@ -9,6 +9,7 @@ import { SweetAlertService } from 'angular-sweetalert-service';
 import { AppComponent } from './app.component';
 import { BuysellModule } from './buysell/buysell.module';
 import { SupplychainModule } from './supplychain/supplychain.module';
+import { ApiService } from './shared/services/api.service';
 
 
 const appRoutes: Routes = [
@@ -19,11 +20,13 @@ const appRoutes: Routes = [
   },
   {
     path: "supplychain",
-    loadChildren: 'app/supplychain/supplychain.module#SupplychainModule'
+    loadChildren: 'app/supplychain/supplychain.module#SupplychainModule',
+    pathMatch: 'full'
   }, 
   {
     path: 'buysell',
-    loadChildren: 'app/buysell/buysell.module#BuysellModule'
+    loadChildren: 'app/buysell/buysell.module#BuysellModule',
+    pathMatch: 'full'
    }
 ];
 
@@ -37,14 +40,14 @@ const MyRouter = RouterModule.forRoot(
     AppComponent
   ],
   imports: [
+    MyRouter,
     BrowserModule,
     BrowserAnimationsModule,
     BuysellModule,
     SupplychainModule,
-    MyRouter,
     HttpClientModule
   ],
-  providers: [SweetAlertService],
+  providers: [SweetAlertService, ApiService], 
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -6,13 +6,22 @@ import { FormsModule } from '@angular/forms';
 
 
 import { SupplierListModule } from '../shared/supplier-list/supplier-list.module';
+import { MembersListComponent } from './members-list/members-list.component';
+import { InventoryComponent } from './inventory/inventory.component';
 
 const SupplychainRoutes: Routes = [
   { 
     path: 'supplychain',  
-    children: [{
-      path: '', component: SupplychainComponent
-    }]
+    children: [
+      { path: '', component: SupplychainComponent, 
+        children: [
+        {  path: 'members', component: MembersListComponent, pathMatch:'full' },
+        {  path: 'inventory', component: InventoryComponent, pathMatch:'full' }
+        {  path: 'inventory/:seller', component: InventoryComponent, pathMatch:'full' }
+      ] 
+    },
+      
+  ]
   }
 ];
 
@@ -26,6 +35,6 @@ export const SupplychainRouting = RouterModule.forChild(SupplychainRoutes);
     FormsModule
   ],
   exports: [RouterModule],
-  declarations: [SupplychainComponent]
+  declarations: [SupplychainComponent, MembersListComponent, InventoryComponent]
 })
 export class SupplychainModule { }

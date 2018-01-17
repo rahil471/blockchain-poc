@@ -4,6 +4,18 @@
       Members of Supply Chain
     </h2>
 
-    <div *ngFor="let actor of actors">
-      <app-supplier-box [actor]=actor></app-supplier-box>
-    </div> 
+    <table class="table is-fullwidth">
+      <thead>
+        <tr>
+          <th>Label</th>
+          <th>Address</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let actor of actors" >
+          <td>{{actor.label}}</td>
+          <td><a [routerLink]="['/supplychain/inventory', actor.address]"> {{actor.address}}</a></td>
+        </tr>
+      </tbody>
+      <!-- <app-supplier-box [actor]=actor></app-supplier-box> -->
+    </table> 

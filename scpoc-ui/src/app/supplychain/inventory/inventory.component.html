@@ -1,0 +1,89 @@
+<div class="section" *ngIf="!!senderAddress">
+    <section class="section">
+        <div class="columns">
+          <div class="column container is-half">
+            <h1 class="title">{{sender?.label}}'s account</h1>
+            <nav class="panel">
+              <p class="panel-heading">
+                {{sender?.label}}
+              </p>
+              <a class="panel-block">
+                <span class="panel-icon">
+                  <i class="fa fa-book"></i>
+                </span>
+                Address - {{sender?.address}}
+              </a>
+              <a class="panel-block is-primary" *ngFor="let asset of sender?.assets">
+                <span class="panel-icon">
+                  <i class="fa fa-book"></i>
+                </span>
+                <b>{{asset.name}} - {{asset.qty}}</b>
+              </a>
+            </nav>
+          </div>      
+      
+          <div class="column container" *ngIf="sender?.label == 'manufacturer 1'">
+            <h1 class="title">Create Assets</h1>
+            <div class="field is-horizontal">
+              <div class="field-body">
+                <div class="field control">
+                  <input class="input is-primary" [(ngModel)]="assetname" (blur)="getActors()" type="text" placeholder="Add Asset Name">
+                </div>
+                <div class="control field">
+                  <input class="input is-primary" [(ngModel)]="qty" type="text" placeholder="Enter Quantity">
+                </div>
+              </div>
+            </div>
+            <div class="field">
+              <div class="control">
+                  <button class="button is-info" [disabled]="!assetname || !qty" (click)="action('manufacture')">Create</button>
+              </div>
+            </div>
+          </div>
+        </div>       
+      </section>
+</div>
+<div class="section">
+  <h1 class="title">Inventory</h1>
+  <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+    <thead>
+      <tr>
+        <th>Member</th>
+        <th>Address</th>
+        <th>Assets</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of list" >
+        <td>{{item.label}}</td>
+        <td>{{item.address}}</td>
+        <td rowspan="asset.length">
+            <table class="table is-fullwidth">
+                <tr>
+                  <th>Name</th>
+                  <th>Balance</th>
+                  <th>Send</th>
+                </tr>
+                <ng-container *ngIf="item.assets">
+                  <tr *ngFor="let asset of item.assets">
+                    <td>{{asset.name}}</td>
+                    <td>{{asset.qty}}</td>
+                    <td>
+                      <div class="field has-addons">
+                        <div class="control">
+                          <input [(ngModel)]="asset.sendQty" type="number" class="input is-primary" placeholder="Quantity to Send"/>    
+                        </div>
+                        <div class="control">
+                          <button (click)="send(item.address, asset.name, asset.sendQty)" class="button is-info">Send</button>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                </ng-container>
+            </table>
+            <!-- <p *ngFor="let asset of item.assets">{{asset.name}} - {{asset.qty}} availaible <button class="button is-info">Send</button></p> -->
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

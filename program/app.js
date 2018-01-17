@@ -414,6 +414,27 @@ app.get('/listactors/:assetname', function(req, res){
     });
 });
 
+app.get('/getbalance/:address', function(req, res){
+    multichain.getMultiBalances({addresses: req.params.address}, (err, data)=>{
+        if(err){
+            console.log(err);
+            return res.status(400).json({message:'error', err:err});
+        }
+        for (let key in users){
+            for(let i=0; i< users[key].length; i++){
+                let actor = {};
+                if(users[key][i] != req.params.address){
+                    continue;
+                }
+                actor.address = users[key][i];
+                actor.label = `${key} ${i+1}`;
+            }
+        }
+        actor.assets = data[req.params.address];
+        return res.json({message:'success', result: actor});
+    });
+});
+
 app.use('/', function(req, res){
     multichain.getInfo((err, info) => {
         if(err){

@@ -1,4 +1,15 @@
 <section class="section">
+    <div class="tabs">
+      <ul>
+        <li [routerLinkActive]="['is-active']" [routerLink]="['/supplychain/members']"><a>Members</a></li>
+        <li [routerLinkActive]="['is-active']"  [routerLink]="['/supplychain/inventory']"><a>Inventory</a></li>
+      </ul>
+    </div>
+    <div class="container">
+      <router-outlet></router-outlet>
+    </div>
+
+
     <div class="columns">
       <div class="column container is-one-third">
         <app-supplier-list [assetname]="assetname" [callapi]="status"></app-supplier-list>
