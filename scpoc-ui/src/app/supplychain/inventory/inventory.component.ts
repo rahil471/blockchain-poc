@@ -24,6 +24,7 @@ export class InventoryComponent implements OnInit {
     });
 
     this.activeRoute.params.subscribe((params)=>{
+      if(!params.seller) return;
       this.senderAddress = params.seller;
       this.api.getBalance(this.senderAddress).subscribe((data)=>{
         this.sender = data.result;

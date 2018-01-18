@@ -8,6 +8,7 @@ import { ApiService } from '../../shared/services/api.service';
 })
 export class TransactionsComponent implements OnInit {
   transactions:any = [];
+  assetname: any;
   constructor(private api: ApiService) { }
 
   ngOnInit() {
