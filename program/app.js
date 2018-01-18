@@ -396,27 +396,33 @@ app.get('/listactors/:assetname', function(req, res){
             }
         }
     }
-    async.map(actors, function(actor, callback){
-        let request = {};
-        if(assetName == 'all'){
-            request = {addresses: actor.address, assets: '*'}
-        } else {
-            request = {addresses: actor.address, assets: assetName};
-        }
-        multichain.getMultiBalances(request, (err, data)=>{
-            if(err){
-                return callback(null, actor);
-            }
-            console.log(data);
-            actor.assets = data[actor.address];
-            callback(null, actor)
+    let assetList = [];
+    multichain.listAssets({asset: '*'}, (err, data)=>{
+        assetList = data.map((obj)=>{
+            return obj.name
         });
-    }, (err, result)=>{
-        if(err){
-            console.log(err);
-            return res.status(400).json({message:'error', err:err});
-        }
-        return res.json({message:'success', result: result});
+        async.map(actors, function(actor, callback){
+            let request = {};
+            if(assetName == 'all'){
+                request = {addresses: actor.address, assets: assetList}
+            } else {
+                request = {addresses: actor.address, assets: assetName};
+            }
+            multichain.getMultiBalances(request, (err, data)=>{
+                if(err){
+                    return callback(null, actor);
+                }
+                console.log(data);
+                actor.assets = data[actor.address];
+                callback(null, actor)
+            });
+        }, (err, result)=>{
+            if(err){
+                console.log(err);
+                return res.status(400).json({message:'error', err:err});
+            }
+            return res.json({message:'success', result: result});
+        });
     });
 });
 
