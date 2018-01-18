@@ -1,5 +1,4 @@
-<div class="section" *ngIf="!!senderAddress">
-    <section class="section">
+<div *ngIf="!!senderAddress">
         <div class="columns">
           <div class="column container is-half">
             <h1 class="title">{{sender?.label}}'s account</h1>
@@ -40,8 +39,7 @@
               </div>
             </div>
           </div>
-        </div>       
-      </section>
+        </div>    
 </div>
 <div class="section">
   <h1 class="title">Inventory</h1>

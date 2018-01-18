@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { SupplierListModule } from '../shared/supplier-list/supplier-list.module';
 import { MembersListComponent } from './members-list/members-list.component';
 import { InventoryComponent } from './inventory/inventory.component';
+import { TransactionsComponent } from './transactions/transactions.component';
 
 const SupplychainRoutes: Routes = [
   { 
@@ -15,9 +16,11 @@ const SupplychainRoutes: Routes = [
     children: [
       { path: '', component: SupplychainComponent, 
         children: [
+        {  path: '', redirectTo: '/supplychain/members', pathMatch:'full' },
         {  path: 'members', component: MembersListComponent, pathMatch:'full' },
         {  path: 'inventory', component: InventoryComponent, pathMatch:'full' },
-        {  path: 'inventory/:seller', component: InventoryComponent, pathMatch:'full' }
+        {  path: 'inventory/:seller', component: InventoryComponent, pathMatch:'full' },
+        {  path: 'transactions', component: TransactionsComponent, pathMatch:'full' }
       ] 
     },
       
@@ -35,6 +38,6 @@ export const SupplychainRouting = RouterModule.forChild(SupplychainRoutes);
     FormsModule
   ],
   exports: [RouterModule],
-  declarations: [SupplychainComponent, MembersListComponent, InventoryComponent]
+  declarations: [SupplychainComponent, MembersListComponent, InventoryComponent, TransactionsComponent]
 })
 export class SupplychainModule { }

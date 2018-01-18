@@ -27,4 +27,7 @@ export class ApiService {
     return this.http.get<any>(`${environment.apihost}/getbalance/${address}`);
   }
 
+  getAssetTransactions(assetname){
+    return this.http.get<any>(`${environment.apihost}/listassettransactions/${assetname}`)
+  }
 }

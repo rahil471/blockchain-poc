@@ -1,0 +1,36 @@
+<section>
+  <h1 class="title">Track Assets</h1>
+  <h2 class="subtitle">
+    Track your asset
+  </h2>
+  <div class="container">
+    <div class="field has-addons">
+      <div class="control">
+        <input [(ngModel)]="assetname" type="text" class="input is-primary" placeholder="Enter asset Name"/>    
+      </div>
+      <div class="control">
+        <button (click)="getTransactions(assetname)" class="button is-info">Fetch</button>
+      </div>
+    </div>
+  </div>
+  <table class="table is-fullwidth">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Transaction</th>
+        <th>BlockHash</th>
+        <!-- <th>Confirmations</th> -->
+        <th>Time</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let tx of transactions">
+        <td style="max-width:150px; word-wrap:break-word">{{tx.txid}}</td>
+        <td style="max-width:300px; word-wrap:break-word"><b>{{tx.addresses | json}}</b></td>
+        <td style="max-width:150px; word-wrap:break-word">{{tx.blockhash}}</td>
+        <!-- <td style="max-width:50px; word-wrap:break-word">{{tx.confirmations}}</td> -->
+        <td style="max-width:100px; word-wrap:break-word">{{tx.time}}</td>
+      </tr>
+    </tbody>
+  </table>
+</section>

@@ -1,8 +1,9 @@
 <section class="section">
-  <div class="tabs">
+  <div class="tabs is-boxed is-centered is-large">
     <ul>
-      <li [routerLinkActive]="['is-active']" [routerLink]="['/supplychain/members']"><a>Members</a></li>
-      <li [routerLinkActive]="['is-active']"  [routerLink]="['/supplychain/inventory']"><a>Inventory</a></li>
+      <li [routerLinkActive]="['is-active']" [routerLink]="['/supplychain/members']"><a><i class="material-icons">people</i>&nbsp;<span>Members</span></a></li>
+      <li [routerLinkActive]="['is-active']"  [routerLink]="['/supplychain/inventory']"><a><i class="material-icons">account_balance_wallet</i>&nbsp;<span>Inventory</span></a></li>
+      <li [routerLinkActive]="['is-active']"  [routerLink]="['/supplychain/transactions']"><a><i class="material-icons">view_list</i>&nbsp;<span>Transactions</span></a></li>
     </ul>
   </div>
   <div class="container">
