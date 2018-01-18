@@ -12,7 +12,7 @@ export class ApiService {
   }
 
   getMembersWithAllAssets(){
-    return this.http.get<any>(`${environment.apihost}/listactors/PS4`);
+    return this.http.get<any>(`${environment.apihost}/listactors/all`);
   }
 
   create(assetname, qty){
