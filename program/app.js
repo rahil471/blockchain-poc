@@ -434,9 +434,9 @@ app.get('/getbalance/:address', function(req, res){
                 }
                 actor.address = users[key][i];
                 actor.label = `${key} ${i+1}`;
+                actor.assets = data[req.params.address];
             }
         }
-        actor.assets = data[req.params.address];
         return res.json({message:'success', result: actor});
     });
 });
