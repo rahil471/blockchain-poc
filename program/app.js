@@ -397,7 +397,13 @@ app.get('/listactors/:assetname', function(req, res){
         }
     }
     async.map(actors, function(actor, callback){
-        multichain.getMultiBalances({addresses: actor.address, assets: assetName, includeLocked: true}, (err, data)=>{
+        let request = {};
+        if(assetName === 'all'){
+            request = {addresses: actor.address}
+        } else {
+            request = {addresses: actor.address, assets: assetName};
+        }
+        multichain.getMultiBalances({addresses: actor.address, assets: assetName}, (err, data)=>{
             if(err){
                 return callback(null, actor);
             }

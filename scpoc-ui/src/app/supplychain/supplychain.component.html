@@ -1,98 +1,11 @@
 <section class="section">
-    <div class="tabs">
-      <ul>
-        <li [routerLinkActive]="['is-active']" [routerLink]="['/supplychain/members']"><a>Members</a></li>
-        <li [routerLinkActive]="['is-active']"  [routerLink]="['/supplychain/inventory']"><a>Inventory</a></li>
-      </ul>
-    </div>
-    <div class="container">
-      <router-outlet></router-outlet>
-    </div>
-
-
-    <div class="columns">
-      <div class="column container is-one-third">
-        <app-supplier-list [assetname]="assetname" [callapi]="status"></app-supplier-list>
-      </div>      
-  
-      <div class="column container is-two-thirds">
-          <h1 class="title">Send Asset</h1>
-          <h2 class="subtitle">
-            Send Assets
-          </h2>
-          <section>
-            <div class="field is-horizontal">
-              <div class="field-body">
-                <div class="field control">
-                  <input class="input is-primary" [(ngModel)]="assetname" (blur)="getActors()" type="text" placeholder="Add Asset Name">
-                </div>
-                <div class="control field">
-                  <input class="input is-primary" [(ngModel)]="qty" type="text" placeholder="Enter Quantity">
-                </div>
-              </div>
-            </div>
-            <div class="field">
-              <label class="label">From</label>
-              <div class="control">
-                <div class="select">
-                  <select #fromList  (change)="changeFrom(fromList.value)" >
-                    <option [value]="undefined" disabled >Please select one option</option>
-                    <option *ngFor="let actor of actors" [hidden]="!actor.assets || !actor.assets[0].qty" [value]="actor|json">
-                      {{actor.label}}
-                    </option>
-                  </select> 
-                </div>
-              </div>
-            </div>
-            <div class="field">
-              <label class="label">Send To</label>
-              <div class="control">
-                  <div class="select">
-                      <select #toList  (change)="changeTo(toList.value)" >
-                        <option [value]="undefined" disabled >Please select one option</option>
-                        <option *ngFor="let actor of actors" [value]="actor|json">
-                          {{actor.label}}
-                        </option>
-                      </select> 
-                    </div>
-              </div>
-            </div>
-            <div class="field">
-              <div class="control">
-                  <button class="button is-info" [disabled]="!assetname || !qty" (click)="action('manufacture')">Create</button>
-                  <button class="button is-primary" [disabled]="!assetname || !qty || !from || !to" (click)="send()">Send</button>
-              </div>
-            </div>
-        </section>
-        <br>
-        <section>
-          <h1 class="title">Track Assets</h1>
-          <h2 class="subtitle">
-            Track your asset
-          </h2>
-          <button class="button is-dark" (click)="fetch()">Fetch Transactions</button>
-          <table class="table is-fullwidth">
-            <thead>
-              <tr>
-                <th>#</th>
-                <th>Transaction</th>
-                <th>BlockHash</th>
-                <!-- <th>Confirmations</th> -->
-                <th>Time</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let tx of transactions">
-                <td style="max-width:150px; word-wrap:break-word">{{tx.txid}}</td>
-                <td style="max-width:300px; word-wrap:break-word"><b>{{tx.addresses | json}}</b></td>
-                <td style="max-width:150px; word-wrap:break-word">{{tx.blockhash}}</td>
-                <!-- <td style="max-width:50px; word-wrap:break-word">{{tx.confirmations}}</td> -->
-                <td style="max-width:100px; word-wrap:break-word">{{tx.time}}</td>
-              </tr>
-            </tbody>
-          </table>
-        </section>
-      </div>
-    </div>
-   
-  </section>
+  <div class="tabs">
+    <ul>
+      <li [routerLinkActive]="['is-active']" [routerLink]="['/supplychain/members']"><a>Members</a></li>
+      <li [routerLinkActive]="['is-active']"  [routerLink]="['/supplychain/inventory']"><a>Inventory</a></li>
+    </ul>
+  </div>
+  <div class="container">
+    <router-outlet></router-outlet>
+  </div>   
+</section>

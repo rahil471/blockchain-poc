@@ -16,7 +16,7 @@ const SupplychainRoutes: Routes = [
       { path: '', component: SupplychainComponent, 
         children: [
         {  path: 'members', component: MembersListComponent, pathMatch:'full' },
-        {  path: 'inventory', component: InventoryComponent, pathMatch:'full' }
+        {  path: 'inventory', component: InventoryComponent, pathMatch:'full' },
         {  path: 'inventory/:seller', component: InventoryComponent, pathMatch:'full' }
       ] 
     },
