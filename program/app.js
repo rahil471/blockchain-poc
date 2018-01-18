@@ -397,7 +397,7 @@ app.get('/listactors/:assetname', function(req, res){
         }
     }
     let assetList = [];
-    multichain.listAssets({asset: '*'}, (err, data)=>{
+    multichain.listAssets({asset: '*', count: 100, start: -100}, (err, data)=>{
         assetList = data.map((obj)=>{
             return obj.name
         });

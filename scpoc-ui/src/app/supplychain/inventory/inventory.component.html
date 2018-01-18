@@ -60,16 +60,16 @@
                 <tr>
                   <th>Name</th>
                   <th>Balance</th>
-                  <th>Send</th>
+                  <th *ngIf="!!senderAddress">Send</th>
                 </tr>
                 <ng-container *ngIf="item.assets">
                   <tr *ngFor="let asset of item.assets">
                     <td>{{asset.name}}</td>
                     <td>{{asset.qty}}</td>
-                    <td>
+                    <td *ngIf="!!senderAddress">
                       <div class="field has-addons">
                         <div class="control">
-                          <input [(ngModel)]="asset.sendQty" type="number" class="input is-primary" placeholder="Quantity to Send"/>    
+                          <input [(ngModel)]="asset.sendQty" type="number" class="input is-primary" placeholder="Send me {{asset.name}}"/>    
                         </div>
                         <div class="control">
                           <button (click)="send(item.address, asset.name, asset.sendQty)" class="button is-info">Send</button>
